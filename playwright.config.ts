@@ -1,7 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 import baseEnvUrl from './tests/utils/environmentBaseUrl';
+import dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config(); // Load environment variables from .env file
 
 export default defineConfig({
   globalSetup: require.resolve('./tests/setup/global-setup'),
