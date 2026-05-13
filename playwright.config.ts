@@ -5,6 +5,10 @@ import dotenv from 'dotenv';
 dotenv.config(); // Load environment variables from .env file
 
 export default defineConfig({
+  /**
+   * Define a file where sign-in logic will occur, and where a JSON file with the sign-in state will be created
+   * to be reused across other tests
+   */
   globalSetup: require.resolve('./tests/setup/global-setup'),
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
@@ -13,7 +17,8 @@ export default defineConfig({
   reporter: 'html',
   // timeout: 5000,
   use: {
-    storageState: 'storageState.json',
+    // storageState and baseURL will be used in global-setup.ts (line 19)
+    storageState: 'storageState.json', // Define JSON file which stores the sign-in state
     trace: 'on',
     baseURL: process.env.ENV === 'production' 
       ? baseEnvUrl.production.home

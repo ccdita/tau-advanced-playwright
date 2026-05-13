@@ -2,6 +2,12 @@ import { type Page, type Locator , expect, type BrowserContext } from '@playwrig
 import bookListData from '../../data/book-list-data';
 import apiPaths from '../../utils/apiPaths';
 
+/**
+ * profile-stored-authentication.spec.ts and profile-page.ts are examples of how Playwright restores the log-in state
+ * so that we do not have to manually (and repeatedly) sign in for every single test (as demonstrated in login.spec.ts
+ * and login-page.ts)
+ */
+
 class SearchPage {
   readonly page: Page;
   readonly bookAdminLabel: Locator;
