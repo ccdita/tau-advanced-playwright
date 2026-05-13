@@ -1,10 +1,5 @@
 # Advanced Playwright
 
-Hi 👋🏽!
-
-Welcome to the course "Advanced Playwright" by [Renata Andrade](https://testingwithrenata.com/) for the [Test Automation University](https://testautomationu.applitools.com/).
-If you are new to Playwright, I invite you to a look at the [Introduction to Playwright](https://testautomationu.applitools.com/instructors/renata_andrade.html) course.
-
 - [Advanced Playwright](#advanced-playwright)
   * [Chapter 1 - Exercises](#chapter-1---exercises)
   * [Chapter 2 - Exercises](#chapter-2---exercises)
@@ -15,7 +10,21 @@ If you are new to Playwright, I invite you to a look at the [Introduction to Pla
 
 ## Chapter 1 - Exercises
 
-1. Comment the line `test.use({ storageState: { cookies: [], origins: [] } });` from [login.spec.ts](/tests/ui/specs/login.spec.ts), add a `.only` at the `test.describe` inside the same file and run the test with the command `test-ui-c`. Observe what happens. Revert the first change and run the test again. See that it's passing again. Revert all the code at the end.
+**1. Comment the line `test.use({ storageState: { cookies: [], origins: [] } });` from [login.spec.ts](/tests/ui/specs/login.spec.ts), add a `.only` at the `test.describe` inside the same file and run the test with the command `test-ui-c`. Observe what happens. Revert the first change and run the test again. See that it's passing again. Revert all the code at the end.**
+
+Observations when commenting `storageState` out:
+- The first test, `successfull login`, fails, and subsequent tests do not run
+- The call log indicates that Playwright tried to fill the Username field, but could not do so because the target had already closed (locator could not be found)
+
+Observations when using an empty `storageState`:
+- All tests in `login.spec.ts` pass
+- The tests are able to perform sign-in as directed in `login.spec.ts`
+
+What happened?
+- `test.use({ storageState: { cookies: [], origins: [] } });` ensures that all tests start with the user logged out
+- When `test.use({ storageState: { cookies: [], origins: [] } });` was commented out, it is possible that the tests ran with existing authentication states
+- The page detected that the user was already logged in, and navigated to a different page. However, the tests in `login.spec.ts` are still executing the login flow and expect locators such as the Username and Password fields
+- Because the user had already logged in and the page navigated elsewhere, these fields are no longer available, therefore causing the tests to fail
 
 1. In the [playwright.config.ts](/playwright.config.ts) change the path of the `storageState`, add some folder name and change the file name. In the [profile-stored-authentication.spec.ts](/tests/ui/specs/profile-stored-authentication.spec.ts) add a `.only` at the `test.describe` and run the test with the command `test-ui-c`. Observe the result. What differences did you notice?
 
