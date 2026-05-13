@@ -12,7 +12,7 @@ export default defineConfig({
    * - Commented out for multi-session tests, since globalSetup and storageState cannot be used simultaneously in
    * this file
    */
-  // globalSetup: require.resolve('./tests/setup/global-setup'),
+  globalSetup: require.resolve('./tests/setup/global-setup'),
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: 0,
@@ -22,7 +22,7 @@ export default defineConfig({
   use: {
     // storageState and baseURL will be used in global-setup.ts (line 19)
     // - Commented out for multi-session tests, since globalSetup and storageState cannot be used simultaneously in this file
-    // storageState: 'storageState.json', // Define JSON file which stores the sign-in state
+    storageState: 'storageState.json', // Define JSON file which stores the sign-in state
     trace: 'on',
     baseURL: process.env.ENV === 'production' 
       ? baseEnvUrl.production.home
