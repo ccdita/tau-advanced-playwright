@@ -23,7 +23,8 @@ async function globalSetup(config: FullConfig) {
   const { baseURL, storageState } = config.projects[0].use;
   // Launch Chrome in headless mode since we are just signing in (you can use other browsers)
   const browser = await chromium.launch({ headless: true, timeout: 10000 });
-  const page = await browser.newPage(); // Open a new tab/page within the browser instance
+  const context = await browser.newContext();
+  const page = await context.newPage(); // Open a new tab/page within the browser instance
   /**
    * It is OK to instantiate a new LoginPage object before going to the login page, since the object is just a wrapper
    * around the Playwright page object (it doesn't immediately interact with the website when it's created)
@@ -31,11 +32,24 @@ async function globalSetup(config: FullConfig) {
    */
   const loginPage = new LoginPage(page); // Create a new LoginPage object
 
-  await page.goto(baseURL+uiPages.login); // Navigate to the login page
-  await loginPage.doLogin(user, password); 
-  await loginPage.checkLoggedIn(); // Check that the user is logged in
-  await page.context().storageState({ path: storageState as string }); // Store log-in state
-  await browser.close();
+  // Capture trace of failures during global setup
+  try {
+    await context.tracing.start({ screenshots: true, snapshots: true });
+    await page.goto(baseURL+uiPages.login); // Navigate to the login page
+    await loginPage.doLogin(user, password); 
+    await loginPage.checkLoggedIn(); // Check that the user is logged in
+    await page.context().storageState({ path: storageState as string }); // Store log-in state
+    await context.tracing.stop({
+      path: './test-results/setup-trace.zip',
+    });
+    await browser.close();
+  } catch (error) {
+    await context.tracing.stop({
+      path: './test-results/failed-setup-trace.zip',
+    });
+    await browser.close();
+    throw error;
+  }
 }
 
 export default globalSetup;
