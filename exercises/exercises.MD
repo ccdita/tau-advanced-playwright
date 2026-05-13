@@ -30,17 +30,12 @@ What happened?
 
 Before changes:
 - Tests pass
-- `globalSetup` automatically signs in prior to tests
+- `globalSetup` signs in and stores authentication state in `storageState` file
 
 After changes:
-- No impact; tests pass
-- The reason for this result is because I only changed the default `storageState` path in `playwright.config.ts`, but not the `storageState` path specific to the `chromium` project that `test-ui-c` runs against
+- Tests pass
+- `globalSetup` signs in and overwrites empty `storageState` file to store new authentication state
 
-Changing the `chromium` project `storageState` path:
-- Playwright returns an `Error` because the specified file `.auth/storageState2.json` does not exist
-
-Removing the `chromium` project `storageState` path to use default `storageState` path:
-- Same result as changing the `chromium` project `storageState` path
 
 1. In the [global-setup.ts](/tests/setup/global-setup.ts) change the headless mode to `false`. Run the test [profile-stored-authentication.spec.ts](/tests/ui/specs/profile-stored-authentication.spec.ts) by adding a `.only` at the `test.describe` and using the command `test-ui-c`. Observe the result. Was it any faster than in headless mode?
 
