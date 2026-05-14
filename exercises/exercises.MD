@@ -41,7 +41,24 @@ After changes:
 
 No, setting headless mode to `false` did not make the test any faster. The test runtimes for both settings were relatively similar.
 
-1. In the [global-setup.ts](/tests/setup/global-setup.ts) explore other browsers instead of chromium.  Run the test [profile-stored-authentication.spec.ts](/tests/ui/specs/profile-stored-authentication.spec.ts) by adding a `.only` at the `test.describe` and using the command `test-ui-c`. What browser performed better?
+**4. In the [global-setup.ts](/tests/setup/global-setup.ts) explore other browsers instead of chromium.  Run the test [profile-stored-authentication.spec.ts](/tests/ui/specs/profile-stored-authentication.spec.ts) by adding a `.only` at the `test.describe` and using the command `test-ui-c`. What browser performed better?**
+
+Chromium performed better. This is because the test runs in Chromium, but `globalSetup` stores browser-specific authentication states in `storageState`. So, if `globalSetup` is configured to a browser that is not Chromium, Playwright may try to restore an authentication state that is not compatible with the tests.
+
+Chromium:
+- Run 1: 5.7s | PASS
+- Run 2: 5.0s | PASS
+- Run 3: 4.6s | PASS
+
+Firefox:
+- Run 1: 8.3s | FAIL
+- Run 2: 8.2s | FAIL
+- Run 3: 13.5s | FAIL
+
+Webkit:
+- Run 1: 8.0s | FAIL
+- Run 2: 8.0s | FAIL
+- Run 3: 12.6s | FAIL
 
 1. In the [global-setup.ts](/tests/setup/global-setup.ts) implement the trace of failures by following this doc // https://playwright.dev/docs/test-global-setup-teardown#capturing-trace-of-failures-during-global-setup. Force a test failure (by passing an invalid username or password for example). What are the advantages of using trace in this file?
 
