@@ -60,7 +60,9 @@ Webkit:
 - Run 2: 8.0s | FAIL
 - Run 3: 12.6s | FAIL
 
-1. In the [global-setup.ts](/tests/setup/global-setup.ts) implement the trace of failures by following this doc // https://playwright.dev/docs/test-global-setup-teardown#capturing-trace-of-failures-during-global-setup. Force a test failure (by passing an invalid username or password for example). What are the advantages of using trace in this file?
+**5. In the [global-setup.ts](/tests/setup/global-setup.ts) implement the trace of failures by following this doc // https://playwright.dev/docs/test-global-setup-teardown#capturing-trace-of-failures-during-global-setup. Force a test failure (by passing an invalid username or password for example). What are the advantages of using trace in this file?**
+
+Using trace in `global-setup.ts` allows us to visually move through each step of the test to better understand the cause of the failure. By "time-travelling" through the test, we can see each action and their associated Call log and Error logs, as well as how they affect the page.
 
 1. Implement a regular sign in test and a sign in using stored state for another website that you have access to. If you need a suggestion, you can use https://demo.applitools.com/ (any username and password) or https://www.saucedemo.com/. What challenges did you have?
 
