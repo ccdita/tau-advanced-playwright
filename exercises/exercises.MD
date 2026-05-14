@@ -22,7 +22,7 @@ Observations when using an empty `storageState`:
 
 What happened?
 - `test.use({ storageState: { cookies: [], origins: [] } });` ensures that all tests start with the user logged out
-- When `test.use({ storageState: { cookies: [], origins: [] } });` was commented out, it is possible that the tests ran with existing authentication states
+- When `test.use({ storageState: { cookies: [], origins: [] } });` was commented out, Playwright restored the previously saved authentication session with `storageState: 'storageState.json'`
 - The page detected that the user was already logged in, and navigated to a different page. However, the tests in `login.spec.ts` are still executing the login flow and expect locators such as the Username and Password fields
 - Because the user had already logged in and the page navigated elsewhere, these fields are no longer available, therefore causing the tests to fail
 
