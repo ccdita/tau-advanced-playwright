@@ -27,10 +27,13 @@
     1. `globalSetup`: performs the sign-in action and creates a JSON file to store the sign-in state, which will be reused across other tests
         - Every time a test command is run, `globalSetup` runs once
         - `globalSetup` can be stored in a server or local machine, as long as you have a way to save sign-in states on the machine the tests are running on
-    2. `storageState`: stores the sign-in state
+    2. `storageState`: stores the sign-in state to be restored by Playwright for other tests
 - Make sure to run the tests in serial mode, to avoid tests failing due to trying to use the same session at the same time:
 
     `test.describe.configure({ mode: 'serial' });`
+
+**RELATED PROJECTS:**
+- [sign-in-demo](https://github.com/ccdita/sign-in-demo): Playwright test suite for verifying login flow using stored authentication state
 
 ## Chapter 1.2
 
