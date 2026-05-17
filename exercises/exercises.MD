@@ -64,7 +64,13 @@ Webkit:
 
 Using trace in `global-setup.ts` allows us to visually move through each step of the test to better understand the cause of the failure. By "time-travelling" through the test, we can see each action and their associated Call log and Error logs, as well as how they affect the page.
 
-1. Implement a regular sign in test and a sign in using stored state for another website that you have access to. If you need a suggestion, you can use https://demo.applitools.com/ (any username and password) or https://www.saucedemo.com/. What challenges did you have?
+**6. Implement a regular sign in test and a sign in using stored state for another website that you have access to. If you need a suggestion, you can use https://demo.applitools.com/ (any username and password) or https://www.saucedemo.com/. What challenges did you have?**
+
+See [sign-in-demo repository](https://github.com/ccdita/sign-in-demo) for solution.
+
+Challenges:
+- Properly setting up the regular sign-in tests and global setup, without confusing the setup steps between the two methods
+- Understanding the differences between regular sign-in tests and global setup
 
 1. Implement an authentication via API request following this doc https://playwright.dev/docs/auth#authenticate-with-api-request. You can use the same https://demoqa.com/books or any other website. How faster that is compared to the UI sign in?
 
