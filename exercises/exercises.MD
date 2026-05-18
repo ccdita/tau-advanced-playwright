@@ -72,7 +72,12 @@ Challenges:
 - Properly setting up the regular sign-in tests and global setup, without confusing the setup steps between the two methods
 - Understanding the differences between regular sign-in tests and global setup
 
-1. Implement an authentication via API request following this doc https://playwright.dev/docs/auth#authenticate-with-api-request. You can use the same https://demoqa.com/books or any other website. How faster that is compared to the UI sign in?
+**7. Implement an authentication via API request following this doc https://playwright.dev/docs/auth#authenticate-with-api-request. You can use the same https://demoqa.com/books or any other website. How faster that is compared to the UI sign in?**
+
+See [sign-in-demo-api repository](https://github.com/ccdita/sign-in-demo-api) for solution.
+
+Signing in via the API is much faster than signing in via the UI since we do not need to load the UI.
+
 
 1. Implement a multi-role sing in test using the "auth-setup" strategy (using something similar to the [auth-setup.ts](/tests/setup/auth-setup.ts) file & [playwright-auth.config.ts](/playwright-auth.config.ts) setup & [profile-stored-auth-multi-role-user.spec.ts](/tests/ui/specs-auth/profile-stored-auth-multi-role-user.spec.ts)) for an application that you have access to. If you need a suggestion, you can use https://www.saucedemo.com/ (there are different users that could be used for different scenarios).
 
