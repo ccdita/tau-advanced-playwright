@@ -1,4 +1,4 @@
-import { test } from '../fixtures/books-fixture';
+import { test } from '../fixtures/books-fixture'; // test is NOT imported from @playwright/test
 import { APIRequestContext, Page } from '@playwright/test';
 import baseAPIUrl from '../../utils/environmentBaseUrl';
 import deleteBookAPIRequest from '../../api/requests/delete-books-collection';
@@ -28,7 +28,8 @@ test.beforeAll(async ({ playwright }) => {
 test.describe('Books - Fixture & API', () => {
     // The scope of use is file or describe
     test.use({ isDupe: false });
-    test('Add brand new book', async ({ page, bookPage }) => { //first thing that will happen is to call the fixture automatically. whenever the fixture has a "use" it goes back to the test and then go back to the fixture again when the test is done and execute any remaining commands
+    // First thing that will happen is to call the fixture (page and bookPage) automatically. whenever the fixture has a "use" it goes back to the test and then go back to the fixture again when the test is done and execute any remaining commands
+    test('Add brand new book', async ({ page, bookPage }) => {
         await cleanBooks(userId, page);
         await bookPage.goto(userData.books.new);
     });

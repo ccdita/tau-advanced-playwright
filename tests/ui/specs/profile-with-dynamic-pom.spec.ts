@@ -6,8 +6,12 @@ import pages from '../../utils/pages';
 let profilePage: ProfilePage;
 
 test.beforeEach(async ({ page }) => {
-    // await page.goto(pages.profile);
-    // profilePage = new ProfilePage(page);
+    // await page.goto(pages.profile); // Go to the profile page before each test
+    // profilePage = new ProfilePage(page); // Instantiate a ProfilePage object with the page object
+    
+    /**
+     * Accomplishes the same thing as above, except in one line = faster development!
+     */
     profilePage = await hooks.beforeEach(page, ProfilePage, pages.profile);
 });
 
