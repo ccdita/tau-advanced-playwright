@@ -88,7 +88,20 @@ See [sign-in-demo-multi-role repository](https://github.com/ccdita/sign-in-demo-
 
 ## Chapter 2 - Exercises
 
-1. Implement a new test using dynamic page object for the Forms page (https://demoqa.com/automation-practice-form). Note that this page doesn't require a sign in, so you'll need to have it covered. What changes in the existing code you had to make? How did you handle the buildUrl strategy?
+**1. Implement a new test using dynamic page object for the Forms page (https://demoqa.com/automation-practice-form). Note that this page doesn't require a sign in, so you'll need to have it covered. What changes in the existing code you had to make? How did you handle the buildUrl strategy?**
+
+See [dynamic-pom-demo repository](https://github.com/ccdita/dynamic-pom-demo) for solution.
+
+In this project, I implemented code not present in the previous exercises:
+- Used a single function (`hooks.beforeEach`) to instantiate a new POM instead of using `page.goto` and `new Page(driver)` in `beforeEach`
+- Used a `buildUrl` function to construct a custom URL based on page URL and query parameters arguments passed into the custom hook
+- Used object literals to store form labels, pages, and valid form data
+
+Handling the buildUrl strategy:
+- Performed exploratory testing to understand the application's URL pattern
+- Stored the paths of relevant pages in an object literal, `./tests/utils/pages.ts`
+- Found that query parameters do not affect the page when appended to the URL
+- A specific page path would be passed into the custom hook for dynamic POM creation, which then calls `buildUrl` to construct a URL from the page path and query parameters (if any)
 
 1. Implement a new test using fixture for the search at the Book Store page (https://demoqa.com/books). Explore scenarios for 1 single result ("You Don't Know JS"), multiple results ("java") and no results ("playwright"). How easy was to implement those multiple scenarios? Is the code easy to understand? Do you considere the use of fixtures for this scenario a good strategy?
 
