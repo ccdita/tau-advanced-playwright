@@ -103,9 +103,13 @@ Handling the buildUrl strategy:
 - Found that query parameters do not affect the page when appended to the URL
 - A specific page path would be passed into the custom hook for dynamic POM creation, which then calls `buildUrl` to construct a URL from the page path and query parameters (if any)
 
-1. Implement a new test using fixture for the search at the Book Store page (https://demoqa.com/books). Explore scenarios for 1 single result ("You Don't Know JS"), multiple results ("java") and no results ("playwright"). How easy was to implement those multiple scenarios? Is the code easy to understand? Do you considere the use of fixtures for this scenario a good strategy?
+**2. Implement a new test using fixture for the search at the Book Store page (https://demoqa.com/books). Explore scenarios for 1 single result ("You Don't Know JS"), multiple results ("java") and no results ("playwright"). How easy was to implement those multiple scenarios? Is the code easy to understand? Do you considere the use of fixtures for this scenario a good strategy?**
 
-1. Implement a new test using fixture for the search at the Book Store page (https://demoqa.com/books). Explore scenarios for 1 single result ("You Don't Know JS"), multiple results ("java") and no results ("playwright"). Explore the use of params too. How easy was to implement those multiple scenarios? Is the code easy to understand? Do you considere the use of fixtures for this scenario a good strategy?
+See [dynamic-pom-demo repository](https://github.com/ccdita/dynamic-pom-demo) for solution.
+
+Implementing the multiple scenarios was fairly easy, because I only needed to create the bookstore fixture and pass it into my tests. This fixture took care of BookstorePage object instantiation, test execution, and teardown for me. This general pattern also makes the code easy to read.
+
+In this scenario, the use of fixtures is a good strategy because we consolidate repetitive code (setup and cleanup) in one place (the fixture) rather than having them in each test.
 
 ## Chapter 3 - Exercises
 
