@@ -113,7 +113,9 @@ In this scenario, the use of fixtures is a good strategy because we consolidate 
 
 ## Chapter 3 - Exercises
 
-1. Implement a new test for "delete 1 book from the collection" (https://demoqa.com/profile) using the existing `deleteBookAPIByIsbn` in [delete-books-collection.ts](/tests/api/requests/delete-books-collection.ts). How easy was to use that existing method? What challenges did you have to implement the test? Did you use the swagger docs at all? Did you need to make any changes for the method to work?
+**1. Implement a new test for "delete 1 book from the collection" (https://demoqa.com/profile) using the existing `deleteBookAPIByIsbn` in [delete-books-collection.ts](/tests/api/requests/delete-books-collection.ts). How easy was to use that existing method? What challenges did you have to implement the test? Did you use the swagger docs at all? Did you need to make any changes for the method to work?**
+
+The test was very easy to implement because the `deleteBookAPIByIsbn` method had already been implemented, which is very similar to the `deleteAllBooksByUser` method.Moreover, I did not run into any challenges implementing the test. I used Chrome DevTools to verify the correct user ID. I did not need to make any changes for the method to work.
 
 1. Implement a new test for "add list of books to collection" (this is not available in the UI, only via API) - Here is the [swagger doc](https://demoqa.com/swagger/#/BookStore/BookStoreV1BooksPost:~:text=Description-,addListOfBooks,-*). How easy was to use the standard methodology? What challenges did you have to implement the test? How did you handle the buildUrl strategy? Was the error handling implementation usefull at all?
 

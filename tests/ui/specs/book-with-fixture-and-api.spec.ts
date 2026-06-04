@@ -8,9 +8,9 @@ test.describe.configure({ mode: 'serial' });
 
 let apiContext: APIRequestContext;
 const env = process.env.ENV!;
-const password = process.env.PASSWORD!;
+const password = process.env.DEMOQA_PASSWORD!;
 const userId = process.env.USERID!;
-const userName = process.env.USERNAME!;
+const userName = process.env.DEMOQA_USERNAME!;
 
 // The playwright fixture is used to create a new APIRequestContext before all tests run
 test.beforeAll(async ({ playwright }) => {
@@ -47,6 +47,16 @@ test.describe('Books - Fixture & API', () => {
         await cleanBooks(userId, page);
         await bookPage.goto(userData.books.new);
     });
+
+    /**
+     * 1. Delete a book from the user's collection by making an API call
+     * 2. Navigate to the book page using the bookPage fixture, which is set up to handle the navigation and interactions with the book page. The test will go to the URL specified in userData.books.new, which is a book to be added to the collection
+     * 3. After the test is executed, it will return to the fixture and execute the remaining commands, which is adding the book to the collection using the addToYourCollection method of the bookPage fixture
+     */
+    test('Delete book', async ({ page, bookPage }) => {
+        await deleteBook(userId, userData.books.new);
+        await bookPage.goto(userData.books.new);
+    });
 });
 
 /**
@@ -59,6 +69,16 @@ async function cleanBooks(userId: string, page: Page) {
     await deleteBookAPIRequest.deleteAllBooksByUser(apiContext, userId);
     // await page.reload();
 };
+
+/**
+ * Deletes a single book from the user's collection by making an API request
+ * 
+ * @param userId of the user whose book needs to be deleted
+ * @param isbn, the International Standard Book Number of the book to be deleted
+ */
+async function deleteBook(userId: string, isbn: string) {
+    await deleteBookAPIRequest.deleteBookAPIByIsbn(apiContext, userId, isbn);
+}
 
 /**
  * 1. import the fixture file instead of the @playwright/test
