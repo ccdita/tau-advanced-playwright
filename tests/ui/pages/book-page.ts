@@ -28,7 +28,14 @@ class BookPage {
     await this.page.goto(url);
   }
 
+  /**
+   * Adds a book to the user's collection
+   * If isDupe is true, it will handle the duplicate book scenario by listening for a dialog and asserting its message before accepting it
+   * 
+   * @param isDupe, a boolean indicating whether the book being added is a duplicate or not
+   */
   async addToYourCollection(isDupe?: boolean) {
+    // If the book being added is a duplicate, set up a listener for the dialog that appears when trying to add a duplicate book
     if (isDupe) {
       let dialogMessage: string;
   

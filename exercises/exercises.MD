@@ -115,9 +115,19 @@ In this scenario, the use of fixtures is a good strategy because we consolidate 
 
 **1. Implement a new test for "delete 1 book from the collection" (https://demoqa.com/profile) using the existing `deleteBookAPIByIsbn` in [delete-books-collection.ts](/tests/api/requests/delete-books-collection.ts). How easy was to use that existing method? What challenges did you have to implement the test? Did you use the swagger docs at all? Did you need to make any changes for the method to work?**
 
+See [`book-with-fixture-and-api.spec.ts`](../tests/ui/specs/book-with-fixture-and-api.spec.ts) for solution.
+
 The test was very easy to implement because the `deleteBookAPIByIsbn` method had already been implemented, which is very similar to the `deleteAllBooksByUser` method.Moreover, I did not run into any challenges implementing the test. I used Chrome DevTools to verify the correct user ID. I did not need to make any changes for the method to work.
 
-1. Implement a new test for "add list of books to collection" (this is not available in the UI, only via API) - Here is the [swagger doc](https://demoqa.com/swagger/#/BookStore/BookStoreV1BooksPost:~:text=Description-,addListOfBooks,-*). How easy was to use the standard methodology? What challenges did you have to implement the test? How did you handle the buildUrl strategy? Was the error handling implementation usefull at all?
+**2. Implement a new test for "add list of books to collection" (this is not available in the UI, only via API) - Here is the [swagger doc](https://demoqa.com/swagger/#/BookStore/BookStoreV1BooksPost:~:text=Description-,addListOfBooks,-*). How easy was to use the standard methodology? What challenges did you have to implement the test? How did you handle the buildUrl strategy? Was the error handling implementation usefull at all?**
+
+See [`book-with-fixture-and-api-isolated-auth.spec.ts`](../tests/ui/specs/book-with-fixture-and-api-isolated-auth.spec.ts) and [`create-books-collection.ts`](../tests/api/requests/create-books-collection.ts) for solution.
+
+Having reusable components such as a centralized API layer and a buildUrl method made implementing the test incredibly easy. The only challenges I encountered while implementing this test was determining what file to implement the method to add a list of books to. In order to accomplish this task, I had to understand the pre-written code.
+
+I did not have to do anything different in terms of handling the buildUrl strategy. The `buildUrl` method did not require an `isbn` argument, so I could simply build the API endpoint for `POST` and pass in the list of books as an argument. 
+
+The error handling implementation did not help me as I did not run into any errors implementing or running the test.
 
 ## Chapter 4 - Exercises
 

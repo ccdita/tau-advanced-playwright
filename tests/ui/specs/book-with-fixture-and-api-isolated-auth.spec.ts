@@ -7,11 +7,12 @@ import deleteBookAPIRequest from '../../api/requests/delete-books-collection';
 import hooks from '../../utils/hooks';
 import pages from '../../utils/pages';
 import userData from '../../data/user-data';
+import bookListData from '../../data/book-list-data';
 
 const env = process.env.ENV!;
-const password = process.env.PASSWORD!;
+const password = process.env.DEMOQA_PASSWORD!;
 const userId = process.env.USERID!;
-const userName = process.env.USERNAME!;
+const userName = process.env.DEMOQA_USERNAME!;
 
 let apiContext: APIRequestContext;
 let loginPage: LoginPage;
@@ -39,12 +40,23 @@ test.describe('Book - Fixture & API with isolated auth', () => {
   test.use({ isDupe: true });
 
   test('Add duplicate book', async ({ bookPage }) => {
-      await addBooks(userId, userData.books.duplicate);
+      await addBook(userId, userData.books.duplicate);
       await bookPage.goto(userData.books.duplicate);
+  });
+
+  // Solution to Ch 3, exercise 2
+  test('Add list of books', async () => {
+    const isbns: string[] = [bookListData.books[0].isbn, bookListData.books[1].isbn]
+    await addListOfBooks(userId, isbns);
   });
 });
 
-async function addBooks(userId: string, isbn: string) {
+async function addBook(userId: string, isbn: string) {
   await deleteBookAPIRequest.deleteAllBooksByUser(apiContext, userId);
   await createBookAPIRequest.addBookToCollection(apiContext, userId, isbn);
+};
+
+async function addListOfBooks(userId: string, requestOptions: Array<string>) {
+  await deleteBookAPIRequest.deleteAllBooksByUser(apiContext, userId);
+  await createBookAPIRequest.addListOfBooksToCollection(apiContext, userId, requestOptions);
 };
