@@ -71,8 +71,24 @@ class SearchPage {
   async getBooksList() {
   }
 
+  /**
+   * Mocks the API response for the books list to have a predictable list of books for testing sorting functionality
+   * 
+   * @param context, the Playwright browser context to set up API interception
+   */
   async mockBooksListResponse(context: BrowserContext) {
+    /**
+     * Intercept the API call to the books collection endpoint and mock the response with the bookListData
+     * - booksCollectionRequestRegExp = Account/v1/User/
+     * - context.route registers a route handler that intercepts any request URL that matches this.booksCollectionRequestRegExp
+     * - (route) => route.fulfill() runs whenever a matching request occurs, and route.fulfill() tells Playwright to return a custom response
+     * - bookListData is spread into a new object to ensure that we are not mutating the original data when we mock the response, 
+     * and then JSON.stringify is used to convert the JavaScript object into a JSON string, which is the expected format for the API response body
+     */
     await context.route(this.booksCollectionRequestRegExp, (route) => route.fulfill({
+      /**
+       * Take all properties from bookListData and copy them into a new object literal (hence the curly braces)
+       */
       body: JSON.stringify({...(bookListData)})
     }));
   }
