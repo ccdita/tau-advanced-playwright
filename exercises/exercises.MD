@@ -131,7 +131,14 @@ The error handling implementation did not help me as I did not run into any erro
 
 ## Chapter 4 - Exercises
 
-1. If you haven't yet, update your newly created tests (Exercise 2.1, 2.3, 2.4, 3.1, 3.2) to use JSON. What are the be benefits of using this approach? Is there any other approach you'd use for these scenarios?
+**1. If you haven't yet, update your newly created tests (Exercise 2.1, 2.3, 2.4, 3.1, 3.2) to use JSON. What are the be benefits of using this approach? Is there any other approach you'd use for these scenarios?**
+
+The benefits of using JSON format include:
+- Small file sizes and therefore, optimized data transmission due to minimal syntax
+- Language agnostic
+- Simplified data representation which can make complex data more readable
+
+I prefer using JSON format, so there is no other approach I would use for these scenarios.
 
 1. Choose one of the scenarios and update it to use a CSV file. Where there any advantages from the coding perspective in using this approach? How about the advantages in terms of test runtime, which approach is the fastest?
 
